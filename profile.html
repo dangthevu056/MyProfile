@@ -1,285 +1,683 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV - Đặng Thế Vũ</title>
+    <title>CV - Đặng Thế Vũ | Intern Java</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            --bg-color: #0f172a;
+            --surface-color: rgba(30, 41, 59, 0.7);
+            --surface-border: rgba(255, 255, 255, 0.1);
+            --primary-color: #38bdf8;
+            --primary-glow: rgba(56, 189, 248, 0.4);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #c084fc;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-image: radial-gradient(circle at top right, rgba(56, 189, 248, 0.1), transparent 40%),
+                              radial-gradient(circle at bottom left, rgba(192, 132, 252, 0.1), transparent 40%);
+            background-attachment: fixed;
         }
 
-        .cv-container {
-            max-width: 900px;
-            margin: auto;
-            padding: 20px;
-            background: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
 
+        a:hover {
+            color: var(--text-main);
+            text-shadow: 0 0 8px var(--primary-color);
+        }
+
+        .container-cv {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 30px;
+            background: var(--surface-color);
+            border: 1px solid var(--surface-border);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        /* Language Switch */
+        .language-switch {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--surface-border);
+            color: var(--text-muted);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+        }
+
+        .lang-btn.active {
+            background: var(--primary-color);
+            color: #0f172a;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        /* Header */
         .cv-header {
             display: flex;
             align-items: center;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
+            gap: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--surface-border);
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+        }
+
+        .avatar-container::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent));
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(10px);
+            opacity: 0.8;
         }
 
         .cv-header img {
-            width: 120px;
-            height: 120px;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
-            margin-right: 20px;
+            object-fit: cover;
+            border: 4px solid var(--bg-color);
+        }
+
+        .header-info h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin: 0 0 5px 0;
+            background: linear-gradient(to right, #fff, var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-info h2 {
+            font-size: 1.4rem;
+            font-family: 'Fira Code', monospace;
+            color: var(--primary-color);
+            font-weight: 500;
+            margin: 0;
+        }
+
+        /* Layout */
+        .cv-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .cv-grid {
+                grid-template-columns: 1fr;
+            }
+            .cv-header {
+                justify-content: center;
+                text-align: center;
+            }
+            .language-switch {
+                top: 10px;
+                right: 10px;
+            }
+            .container-cv {
+                margin: 0;
+                border-radius: 0;
+                border: none;
+            }
+        }
+
+        /* Sections */
+        .section-title {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            font-size: 1.4rem;
         }
 
         .cv-section {
+            margin-bottom: 35px;
+        }
+
+        /* Contact Items */
+        .contact-item {
             display: flex;
-            padding: 10px 0;
-            border-bottom: 1px solid #ddd;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            color: var(--text-muted);
+            word-break: break-all;
         }
 
-        .cv-section .title {
-            flex: 1;
-            font-weight: bold;
-            color: #007bff;
-            text-transform: uppercase;
+        .contact-item i {
+            color: var(--primary-color);
+            font-size: 1.2rem;
         }
 
-        .cv-section .content {
-            flex: 3;
+        /* Tags/Skills */
+        .skill-group {
+            margin-bottom: 15px;
         }
 
-        .language-switch {
-            position: fixed;
-            top: 10px;
-            right: 10px;
+        .skill-group p {
+            margin-bottom: 8px;
+            color: var(--text-main);
+            font-weight: 500;
         }
 
-        .language-switch button {
-            margin-left: 5px;
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--primary-color);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-family: 'Fira Code', monospace;
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            transition: all 0.3s;
+        }
+
+        .tag:hover {
+            background: var(--primary-color);
+            color: var(--bg-color);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        /* Cards for Projects/Education */
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--surface-border);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-item:hover {
+            transform: translateY(-3px);
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), inset 0 0 20px rgba(56, 189, 248, 0.05);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary-color);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .timeline-item:hover::before {
+            opacity: 1;
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .timeline-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin: 0;
+        }
+
+        .timeline-date {
+            font-size: 0.9rem;
+            color: var(--accent);
+            font-family: 'Fira Code', monospace;
+        }
+
+        .timeline-content {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .timeline-content ul {
+            padding-left: 20px;
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+
+        .timeline-content li {
+            margin-bottom: 5px;
+        }
+
+        .timeline-content strong {
+            color: var(--text-main);
+        }
+
+        /* Sub Tech Badge in Project */
+        .tech-badges {
+            margin-top: 15px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tech-badge {
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
         }
 
         @media print {
-            @page {
-                margin: 0;
+            body { 
+                background: #fff; color: #000; 
+                background-image: none;
             }
-
-            body {
-                margin: 0;
+            .container-cv {
+                box-shadow: none; border: none; padding: 0; backdrop-filter: none; background: none; margin: 0; max-width: 100%;
             }
-
-            .language-switch {
-                display: none;
-            }
+            .language-switch { display: none; }
+            .cv-header { border-bottom: 2px solid #ccc; justify-content: flex-start;}
+            .header-info h1 { -webkit-text-fill-color: #000; background: none; color: #000; }
+            .header-info h2 { color: #555; }
+            .section-title { color: #333; }
+            .tag { border: 1px solid #ccc; background: none; color: #000; }
+            .timeline-item { border: 1px solid #ccc; break-inside: avoid;}
+            a { text-decoration: none; color: #0056b3; }
+            .avatar-container::before { display: none; }
         }
     </style>
 </head>
-
 <body>
-    <div class="cv-container">
+    <div class="container-cv">
         <div class="language-switch">
-            <button id="viBtn" class="btn btn-primary">VI</button>
-            <button id="enBtn" class="btn btn-secondary">EN</button>
+            <button class="lang-btn active" onclick="setLang('vi')" id="viBtn">VI</button>
+            <button class="lang-btn" onclick="setLang('en')" id="enBtn">EN</button>
         </div>
 
-        <div class="cv-header">
-            <img src="Avatar.jpg" alt="Avatar">
-            <div>
-                <h2 id="fullName">Đặng Thế Vũ</h2>
-                <p id="jobTitle">Intern - Java</p>
+        <header class="cv-header">
+            <div class="avatar-container">
+                <img src="Avatar.jpg" alt="Đặng Thế Vũ">
             </div>
-        </div>
-
-        <div class="cv-section">
-            <div class="title" id="personalInfoTitle">Thông tin cá nhân</div>
-            <div class="content">
-                <p><i class="bi bi-phone"></i></i> <a href="https://zalo.me/0379936123" target="_blank">0379936123
-                        (Zalo)</a></p>
-
-                <p><i class="bi bi-envelope"></i> <a href="mailto:dangthevu056@gmail.com"
-                        target="_blank">dangthevu056@gmail.com</a></p>
-
-                <p><i class="bi bi-facebook"></i> <a href="https://facebook.com/dangthevu056"
-                        target="_blank">facebook.com/dangthevu056</a></p>
-
-                <p><i class="bi bi-github"></i> <a href="https://github.com/dangthevu056"
-                        target="_blank">github.com/dangthevu056</a></p>
-
-                <p><i class="bi bi-github"></i> <a href="https://github.com/vu20130465"
-                        target="_blank">github.com/vu20130465 (email edu)</a></p>
-
-                <p><i class="bi bi-geo-alt"></i> <a href="https://maps.app.goo.gl/KZZHR6CixDJpvQRi7" target="_blank">TP Thủ
-                        Đức, TP Hồ Chí Minh</a></p>
+            <div class="header-info">
+                <h1 data-i18n="name">Đặng Thế Vũ</h1>
+                <h2><i class="bi bi-terminal"></i> Intern_Java</h2>
             </div>
-        </div>
+        </header>
 
-        <div class="cv-section">
-            <div class="title" id="careerObjectiveTitle">Mục tiêu nghề nghiệp</div>
-            <div class="content" id="careerObjectiveContent">
-                <p>Định hướng trở thành Fullstack Developer, mong muốn thực
-                    tập để mở rộng kiến thức về frontend và
-                    backend, áp dụng kỹ năng lập trình vào các dự án thực tế
-                    và nâng cao khả năng xây dựng hệ thống web
-                    hiệu quả. Bên cạnh đó còn tham vọng tìm hiểu thêm
-                    về Quản trị mạng</p>
+        <div class="cv-grid">
+            <!-- Left Column -->
+            <div class="left-column">
+                <section class="cv-section">
+                    <h3 class="section-title">
+                        <i class="bi bi-person-lines-fill"></i> 
+                        <span data-i18n="contact.title">Liên Hệ</span>
+                    </h3>
+                    <div class="contact-item">
+                        <i class="bi bi-phone"></i>
+                        <a href="https://zalo.me/0379936123" target="_blank">0379936123 (Zalo)</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="bi bi-envelope"></i>
+                        <a href="mailto:dangthevu056@gmail.com">dangthevu056@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="bi bi-github"></i>
+                        <a href="https://github.com/dangthevu056" target="_blank">github.com/dangthevu056</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="bi bi-github"></i>
+                        <a href="https://github.com/vu20130465" target="_blank">github.com/vu20130465 <span data-i18n="contact.edu">(edu)</span></a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="bi bi-facebook"></i>
+                        <a href="https://facebook.com/dangthevu056" target="_blank">facebook.com/dangthevu056</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="bi bi-geo-alt"></i>
+                        <a href="https://maps.app.goo.gl/KZZHR6CixDJpvQRi7" target="_blank">
+                            <span data-i18n="contact.location">Thủ Đức, TP Hồ Chí Minh</span>
+                        </a>
+                    </div>
+                </section>
+
+                <section class="cv-section">
+                    <h3 class="section-title">
+                        <i class="bi bi-code-slash"></i> 
+                        <span data-i18n="skills.title">Kỹ Năng</span>
+                    </h3>
+                    
+                    <div class="skill-group">
+                        <p data-i18n="skills.lang">Ngôn ngữ</p>
+                        <div class="tag-list">
+                            <span class="tag">Java</span>
+                            <span class="tag">C#</span>
+                            <span class="tag">JavaScript</span>
+                            <span class="tag">HTML/CSS</span>
+                        </div>
+                    </div>
+                    
+                    <div class="skill-group">
+                        <p>Backend</p>
+                        <div class="tag-list">
+                            <span class="tag">Spring Boot</span>
+                            <span class="tag">ASP.NET Core</span>
+                            <span class="tag">Entity Framework</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group">
+                        <p>Frontend & Mobile</p>
+                        <div class="tag-list">
+                            <span class="tag">ReactJS</span>
+                            <span class="tag">React Native</span>
+                            <span class="tag">Flutter</span>
+                            <span class="tag">Bootstrap</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-group">
+                        <p data-i18n="skills.other">Khác</p>
+                        <div class="tag-list">
+                            <span class="tag">Git</span>
+                            <span class="tag">SQL Server</span>
+                            <span class="tag">MySQL</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="cv-section">
+                    <h3 class="section-title">
+                        <i class="bi bi-stars"></i> 
+                        <span data-i18n="soft.title">Kỹ Năng Mềm</span>
+                    </h3>
+                    <div class="tag-list">
+                        <span class="tag" data-i18n="soft.comm">Giao tiếp</span>
+                        <span class="tag" data-i18n="soft.team">Làm việc nhóm</span>
+                        <span class="tag" data-i18n="soft.prob">Giải quyết vấn đề</span>
+                    </div>
+                </section>
+                
+                <section class="cv-section">
+                    <h3 class="section-title">
+                        <i class="bi bi-lightbulb"></i> 
+                        <span data-i18n="interests.title">Quan Tâm</span>
+                    </h3>
+                    <div class="tag-list">
+                        <span class="tag">Fullstack Dev</span>
+                        <span class="tag">Mobile Dev</span>
+                        <span class="tag">Computer Networks</span>
+                    </div>
+                </section>
             </div>
-        </div>
 
-        <div class="cv-section">
-            <div class="title" id="educationTitle">Học vấn</div>
-            <div class="content" id="educationContent">
-                <p>🎓 Đại học Nông Lâm TP.HCM - Ngành Công nghệ Thông tin (2020 - 2025)</p>
-            </div>
-        </div>
+            <!-- Right Column -->
+            <div class="right-column">
+                <section class="cv-section">
+                    <h3 class="section-title">
+                        <i class="bi bi-briefcase"></i> 
+                        <span data-i18n="obj.title">Mục Tiêu Nghề Nghiệp</span>
+                    </h3>
+                    <div class="timeline-item">
+                        <p class="timeline-content" data-i18n="obj.content">
+                            Định hướng trở thành Fullstack Developer, mong muốn thực tập để mở rộng kiến thức về frontend và backend, áp dụng kỹ năng lập trình vào các dự án thực tế và nâng cao khả năng xây dựng hệ thống web hiệu quả. Bên cạnh đó còn tham vọng tìm hiểu thêm về Quản trị mạng.
+                        </p>
+                    </div>
+                </section>
 
-        <div class="cv-section">
-            <div class="title" id="projectsTitle">Dự án</div>
-            <div class="content" id="projectsContent">
-                <div class="project-item">
-                    <p><strong>Website Bán chất hoá học</strong> <span class="project-time">(10/2022 - 12/2022)</span>
-                    </p>
-                    <ul>
-                        <li><strong>Số người tham gia:</strong> 4</li>
-                        <li><strong>Phần đóng góp:</strong> Giỏ hàng, thanh toán</li>
-                        <li><strong>Frontend:</strong> Bootstrap, jQuery, JavaScript</li>
-                        <li><strong>Backend:</strong> ASP.NET Core, Entity Framework</li>
-                        <li><strong>Database:</strong> SQL Server</li>
-                        <li><strong>Link:</strong> <a href="https://github.com/TranMinhTuyen-20130459/Web_Hoa_Chat_Thi_Nghiem_DotNet" target="_blank">Web_Hoa_Chat_Thi_Nghiem_DotNet</a></li>
-                    </ul>
-                </div>
+                <section class="cv-section">
+                    <h3 class="section-title">
+                        <i class="bi bi-mortarboard"></i> 
+                        <span data-i18n="edu.title">Học Vấn</span>
+                    </h3>
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <h4 class="timeline-title" data-i18n="edu.school">Đại học Nông Lâm TP.HCM</h4>
+                            <span class="timeline-date">2020 - 2025</span>
+                        </div>
+                        <div class="timeline-content">
+                            <strong data-i18n="edu.major">Ngành: Công nghệ Thông tin</strong>
+                        </div>
+                    </div>
+                </section>
 
-                <div class="project-item">
-                    <p><strong>Website Bán điện thoại</strong> <span class="project-time">(4/2024 - 5/2024)</span>
-                    </p>
-                    <ul>
-                        <li><strong>Số người tham gia:</strong> 4</li>
-                        <li><strong>Phần đóng góp:</strong> Giỏ hàng, thanh toán, phần lớn backend</li>
-                        <li><strong>Frontend:</strong> ReactJS, MUI, HTML, CSS, JavaScript</li>
-                        <li><strong>Backend:</strong> Spring Boot, Java, JPA</li>
-                        <li><strong>Database:</strong> MySQL</li>
-                        <li><strong>Link:</strong> <a href="https://github.com/vu20130465/special_subject_of_web_programming" target="_blank">Backend</a>, <a href="https://github.com/HoangNhutDuy/CDWEB_FrontEnd" target="_blank">Frontend</a></li>
-                    </ul>
-                </div>
+                <section class="cv-section">
+                    <h3 class="section-title">
+                        <i class="bi bi-rocket-takeoff"></i> 
+                        <span data-i18n="proj.title">Dự Án Nổi Bật</span>
+                    </h3>
 
-                <div class="project-item">
-                    <p><strong>Ứng dụng Bán đồ thể thao</strong> <span class="project-time">(11/2024 - 12/2024)</span>
-                    </p>
-                    <ul>
-                        <li><strong>Số người tham gia:</strong> 4</li>
-                        <li><strong>Phần đóng góp:</strong> Giỏ hàng, thanh toán, admin</li>
-                        <li><strong>Mobile:</strong> React Native</li>
-                        <li><strong>Admin App:</strong> Flutter</li>
-                        <li><strong>Backend:</strong> Spring Boot</li>
-                        <li><strong>Database:</strong> MySQL</li>
-                        <li><strong>Link:</strong> <a href="https://github.com/dangthevu056/app-tiki-react-native" target="_blank">Frontend</a>, <a href="https://github.com/dangthevu056/api_web_ban_hang" target="_blank">Backend</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+                    <!-- Project 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <h4 class="timeline-title" data-i18n="proj1.name">Ứng dụng Bán đồ thể thao</h4>
+                            <span class="timeline-date">11/2024 - 12/2024</span>
+                        </div>
+                        <div class="timeline-content">
+                            <ul>
+                                <li><strong>Team size:</strong> 4</li>
+                                <li>
+                                    <strong data-i18n="proj.role">Đóng góp:</strong> 
+                                    <span data-i18n="proj1.desc">Giỏ hàng, thanh toán, admin.</span>
+                                </li>
+                                <li>
+                                    <strong>Source:</strong> 
+                                    <a href="https://github.com/dangthevu056/app-tiki-react-native" target="_blank"><i class="bi bi-link-45deg"></i> Frontend</a> |
+                                    <a href="https://github.com/dangthevu056/api_web_ban_hang" target="_blank"><i class="bi bi-link-45deg"></i> Backend</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tech-badges">
+                            <span class="tech-badge">React Native</span>
+                            <span class="tech-badge">Flutter</span>
+                            <span class="tech-badge">Spring Boot</span>
+                            <span class="tech-badge">MySQL</span>
+                        </div>
+                    </div>
 
-        <div class="cv-section">
-            <div class="title" id="programmingSkillsTitle">Kỹ năng lập trình</div>
-            <div class="content" id="programmingSkillsContent">
-                <p><strong>Ngôn ngữ lập trình:</strong> Java, C#,
-                    JavaScript, HTML, CSS</p>
-                <p><strong>Frontend:</strong> ReactJS, Bootstrap</p>
-                <p><strong>Backend:</strong> Spring Boot, ASP.NET Core,
-                    Entity Framework</p>
-                <p><strong>Mobile:</strong> React Native, Flutter</p>
-                <p><strong>Khác:</strong> Git</p>
-            </div>
-        </div>
+                    <!-- Project 2 -->
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <h4 class="timeline-title" data-i18n="proj2.name">Website Bán điện thoại</h4>
+                            <span class="timeline-date">04/2024 - 05/2024</span>
+                        </div>
+                        <div class="timeline-content">
+                            <ul>
+                                <li><strong>Team size:</strong> 4</li>
+                                <li>
+                                    <strong data-i18n="proj.role">Đóng góp:</strong> 
+                                    <span data-i18n="proj2.desc">Giỏ hàng, thanh toán, phần lớn Backend.</span>
+                                </li>
+                                <li>
+                                    <strong>Source:</strong> 
+                                    <a href="https://github.com/HoangNhutDuy/CDWEB_FrontEnd" target="_blank"><i class="bi bi-link-45deg"></i> Frontend</a> |
+                                    <a href="https://github.com/vu20130465/special_subject_of_web_programming" target="_blank"><i class="bi bi-link-45deg"></i> Backend</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tech-badges">
+                            <span class="tech-badge">ReactJS</span>
+                            <span class="tech-badge">Spring Boot</span>
+                            <span class="tech-badge">JPA</span>
+                            <span class="tech-badge">MySQL</span>
+                        </div>
+                    </div>
 
-        <div class="cv-section">
-            <div class="title" id="softSkillsTitle">Kỹ năng mềm</div>
-            <div class="content" id="softSkillsContent">
-                <p>Giao tiếp, làm việc nhóm, giải quyết vấn đề</p>
-            </div>
-        </div>
-
-        <div class="cv-section">
-            <div class="title" id="interestsTitle">Lĩnh vực quan tâm</div>
-            <div class="content" id="interestsContent">
-                <p>Fullstack Development, Mobile Development, Computer Networks</p>
+                    <!-- Project 3 -->
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <h4 class="timeline-title" data-i18n="proj3.name">Website Bán hóa chất</h4>
+                            <span class="timeline-date">10/2022 - 12/2022</span>
+                        </div>
+                        <div class="timeline-content">
+                            <ul>
+                                <li><strong>Team size:</strong> 4</li>
+                                <li>
+                                    <strong data-i18n="proj.role">Đóng góp:</strong> 
+                                    <span data-i18n="proj3.desc">Giỏ hàng, thanh toán.</span>
+                                </li>
+                                <li>
+                                    <strong>Source:</strong> 
+                                    <a href="https://github.com/TranMinhTuyen-20130459/Web_Hoa_Chat_Thi_Nghiem_DotNet" target="_blank"><i class="bi bi-link-45deg"></i> Github</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="tech-badges">
+                            <span class="tech-badge">ASP.NET Core</span>
+                            <span class="tech-badge">EF</span>
+                            <span class="tech-badge">Bootstrap</span>
+                            <span class="tech-badge">jQuery</span>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
     </div>
 
+    <!-- TỪ ĐIỂN DỮ LIỆU I18N -->
     <script>
-        const viBtn = document.getElementById('viBtn');
-        const enBtn = document.getElementById('enBtn');
+        const translations = {
+            "vi": {
+                "name": "Đặng Thế Vũ",
+                "contact.title": "Liên Hệ",
+                "contact.edu": "(edu)",
+                "contact.location": "Thủ Đức, TP Hồ Chí Minh",
+                "skills.title": "Kỹ Năng",
+                "skills.lang": "Ngôn ngữ",
+                "skills.other": "Khác",
+                "soft.title": "Kỹ Năng Mềm",
+                "soft.comm": "Giao tiếp",
+                "soft.team": "Làm việc nhóm",
+                "soft.prob": "Giải quyết vấn đề",
+                "interests.title": "Quan Tâm",
+                "obj.title": "Mục Tiêu Nghề Nghiệp",
+                "obj.content": "Định hướng trở thành Fullstack Developer, mong muốn thực tập để mở rộng kiến thức về frontend và backend, áp dụng kỹ năng lập trình vào các dự án thực tế và nâng cao khả năng xây dựng hệ thống web hiệu quả. Bên cạnh đó còn tham vọng tìm hiểu thêm về Quản trị mạng.",
+                "edu.title": "Học Vấn",
+                "edu.school": "Đại học Nông Lâm TP.HCM",
+                "edu.major": "Ngành: Công nghệ Thông tin",
+                "proj.title": "Dự Án Nổi Bật",
+                "proj.role": "Đóng góp:",
+                "proj1.name": "Ứng dụng Bán đồ thể thao",
+                "proj1.desc": "Giỏ hàng, thanh toán, admin.",
+                "proj2.name": "Website Bán điện thoại",
+                "proj2.desc": "Giỏ hàng, thanh toán, phần lớn Backend.",
+                "proj3.name": "Website Bán hóa chất",
+                "proj3.desc": "Giỏ hàng, thanh toán."
+            },
+            "en": {
+                "name": "Dang The Vu",
+                "contact.title": "Contact",
+                "contact.edu": "(edu)",
+                "contact.location": "Thu Duc City, HCMC",
+                "skills.title": "Tech Skills",
+                "skills.lang": "Languages",
+                "skills.other": "Others",
+                "soft.title": "Soft Skills",
+                "soft.comm": "Communication",
+                "soft.team": "Teamwork",
+                "soft.prob": "Problem-solving",
+                "interests.title": "Interests",
+                "obj.title": "Career Objective",
+                "obj.content": "Aiming to become a Fullstack Developer, eager to intern to broaden knowledge of frontend and backend technologies, apply technical programming skills to real-world projects, and enhance the ability to architect efficient web systems. Besides, there is an ambition to learn more about Network Administration.",
+                "edu.title": "Education",
+                "edu.school": "Nong Lam University HCMC",
+                "edu.major": "Major: Information Technology",
+                "proj.title": "Highlighted Projects",
+                "proj.role": "Role:",
+                "proj1.name": "Sportswear App",
+                "proj1.desc": "Cart, checkout, admin module.",
+                "proj2.name": "Smartphone E-commerce",
+                "proj2.desc": "Cart, checkout, main backend developer.",
+                "proj3.name": "Chemical Sales Web",
+                "proj3.desc": "Cart, checkout flow."
+            }
+        };
 
-        const fullName = document.getElementById('fullName');
-        const jobTitle = document.getElementById('jobTitle');
-        const personalInfoTitle = document.getElementById('personalInfoTitle');
-        const careerObjectiveTitle = document.getElementById('careerObjectiveTitle');
-        const careerObjectiveContent = document.getElementById('careerObjectiveContent');
-        const educationTitle = document.getElementById('educationTitle');
-        const educationContent = document.getElementById('educationContent');
-        const projectsTitle = document.getElementById('projectsTitle');
-        const projectsContent = document.getElementById('projectsContent');
-        const programmingSkillsTitle = document.getElementById('programmingSkillsTitle');
-        const programmingSkillsContent = document.getElementById('programmingSkillsContent');
-        const softSkillsTitle = document.getElementById('softSkillsTitle');
-        const softSkillsContent = document.getElementById('softSkillsContent');
-        const interestsTitle = document.getElementById('interestsTitle');
-        const interestsContent = document.getElementById('interestsContent');
+        function setLang(lang) {
+            // Cập nhật thư viện ngôn ngữ lên HTML document
+            document.documentElement.lang = lang;
+            
+            // Xử lý active các nút
+            document.getElementById('viBtn').classList.toggle('active', lang === 'vi');
+            document.getElementById('enBtn').classList.toggle('active', lang === 'en');
+            
+            // Tìm tất cả các phần tử có thuộc tính data-i18n và render lại chữ
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if(translations[lang] && translations[lang][key]) {
+                    element.innerHTML = translations[lang][key];
+                }
+            });
 
-        viBtn.addEventListener('click', () => {
-            // Change button styles
-            viBtn.classList.add('btn-primary');
-            viBtn.classList.remove('btn-secondary');
-            enBtn.classList.add('btn-secondary');
-            enBtn.classList.remove('btn-primary');
+            // Ghi nhớ ngôn ngữ ưu tiên vào trình duyệt của người dùng (tùy chọn)
+            localStorage.setItem('cv_lang', lang);
+        }
 
-            // Update content
-            fullName.textContent = "Đặng Thế Vũ";
-            jobTitle.textContent = "Intern - Java";
-            personalInfoTitle.textContent = "Thông tin cá nhân";
-            careerObjectiveTitle.textContent = "Mục tiêu nghề nghiệp";
-            careerObjectiveContent.innerHTML = "<p>Định hướng trở thành Fullstack Developer, mong muốn thực tập để mở rộng kiến thức về frontend và backend, áp dụng kỹ năng lập trình vào các dự án thực tế và nâng cao khả năng xây dựng hệ thống web hiệu quả. Bên cạnh đó còn tham vọng tìm hiểu thêm về Quản trị mạng</p>";
-            educationTitle.textContent = "Học vấn";
-            educationContent.innerHTML = "<p>🎓 Đại học Nông Lâm TP.HCM - Ngành Công nghệ Thông tin (2020 - nay)</p>";
-            projectsTitle.textContent = "Dự án";
-            projectsContent.innerHTML = "<div class='project-item'><p><strong>Website Bán chất hoá học</strong> <span class='project-time'>(10/2022 - 12/2022)</span></p><ul><li><strong>Số người tham gia:</strong> 4</li><li><strong>Phần đóng góp:</strong> Giỏ hàng, thanh toán</li><li><strong>Frontend:</strong> Bootstrap, jQuery, JavaScript</li><li><strong>Backend:</strong> ASP.NET Core, Entity Framework</li><li><strong>Database:</strong> SQL Server</li><li><strong>Link:</strong> <a href=\"https://github.com/TranMinhTuyen-20130459/Web_Hoa_Chat_Thi_Nghiem_DotNet\" target=\"_blank\">Web_Hoa_Chat_Thi_Nghiem_DotNet</a></li></ul></div><div class='project-item'><p><strong>Website Bán điện thoại</strong> <span class='project-time'>(4/2024 - 5/2024)</span></p><ul><li><strong>Số người tham gia:</strong> 4</li><li><strong>Phần đóng góp:</strong> Giỏ hàng, thanh toán, phần lớn backend</li><li><strong>Frontend:</strong> ReactJS, MUI, HTML, CSS, JavaScript</li><li><strong>Backend:</strong> Spring Boot, Java, JPA</li><li><strong>Database:</strong> MySQL</li><li><strong>Link:</strong> <a href=\"https://github.com/vu20130465/special_subject_of_web_programming\" target=\"_blank\">Backend</a>, <a href=\"https://github.com/HoangNhutDuy/CDWEB_FrontEnd\" target=\"_blank\">Frontend</a></li></ul></div><div class='project-item'><p><strong>Ứng dụng Bán đồ thể thao</strong> <span class='project-time'>(11/2024 - 12/2024)</span></p><ul><li><strong>Số người tham gia:</strong> 4</li><li><strong>Phần đóng góp:</strong> Giỏ hàng, thanh toán, admin</li><li><strong>Mobile:</strong> React Native</li><li><strong>Admin App:</strong> Flutter</li><li><strong>Backend:</strong> Spring Boot</li><li><strong>Database:</strong> MySQL</li><li><strong>Link:</strong> <a href=\"https://github.com/dangthevu056/app-tiki-react-native\" target=\"_blank\">Frontend</a>, <a href=\"https://github.com/dangthevu056/api_web_ban_hang\" target=\"_blank\">Backend</a></li></ul></div>";
-            programmingSkillsTitle.textContent = "Kỹ năng lập trình";
-            programmingSkillsContent.innerHTML = "<p><strong>Ngôn ngữ lập trình:</strong> Java, C#, JavaScript, HTML, CSS</p><p><strong>Frontend:</strong> ReactJS, Bootstrap</p><p><strong>Backend:</strong> Spring Boot, ASP.NET Core, Entity Framework</p><p><strong>Mobile:</strong> React Native, Flutter</p><p><strong>Khác:</strong> Git</p>";
-            softSkillsTitle.textContent = "Kỹ năng mềm";
-            softSkillsContent.innerHTML = "<p>Giao tiếp, làm việc nhóm, giải quyết vấn đề</p>";
-            interestsTitle.textContent = "Lĩnh vực quan tâm";
-            interestsContent.innerHTML = "<p>Fullstack Development, Mobile Development, Computer Networks</p>";
-        });
-
-        enBtn.addEventListener('click', () => {
-            // Change button styles
-            enBtn.classList.add('btn-primary');
-            enBtn.classList.remove('btn-secondary');
-            viBtn.classList.add('btn-secondary');
-            viBtn.classList.remove('btn-primary');
-
-            // Update content
-            //fullName.textContent = "Dang The Vu";
-            jobTitle.textContent = "Intern - Java";
-            personalInfoTitle.textContent = "Personal Information";
-            careerObjectiveTitle.textContent = "Career Objective";
-            careerObjectiveContent.innerHTML = "<p>Aiming to become a Fullstack Developer, eager to intern to broaden knowledge of frontend and backend, apply programming skills to real projects, and enhance the ability to build effective web systems. Besides, there is an ambition to learn more about Network administrator.</p>";
-            educationTitle.textContent = "Education";
-            educationContent.innerHTML = "<p>🎓 Nong Lam University, Ho Chi Minh City - Information Technology (2020 - present)</p>";
-            projectsTitle.textContent = "Projects";
-            projectsContent.innerHTML = "<div class='project-item'><p><strong>Chemical Sales Website</strong> <span class='project-time'>(10/2022 - 12/2022)</span></p><ul><li><strong>Số người tham gia:</strong> 4</li><li><strong>Phần đóng góp:</strong> Giỏ hàng, thanh toán</li><li><strong>Frontend:</strong> Bootstrap, jQuery, JavaScript</li><li><strong>Backend:</strong> ASP.NET Core, Entity Framework</li><li><strong>Database:</strong> SQL Server</li><li><strong>Link:</strong> <a href=\"https://github.com/TranMinhTuyen-20130459/Web_Hoa_Chat_Thi_Nghiem_DotNet\" target=\"_blank\">Web_Hoa_Chat_Thi_Nghiem_DotNet</a></li></ul></div><div class='project-item'><p><strong>Phone Sales Website</strong> <span class='project-time'>(4/2024 - 5/2024)</span></p><ul><li><strong>Số người tham gia:</strong> 4</li><li><strong>Phần đóng góp:</strong> Giỏ hàng, thanh toán, phần lớn backend</li><li><strong>Frontend:</strong> ReactJS, MUI, HTML, CSS, JavaScript</li><li><strong>Backend:</strong> Spring Boot, Java, JPA</li><li><strong>Database:</strong> MySQL</li><li><strong>Link:</strong> <a href=\"https://github.com/vu20130465/special_subject_of_web_programming\" target=\"_blank\">Backend</a>, <a href=\"https://github.com/HoangNhutDuy/CDWEB_FrontEnd\" target=\"_blank\">Frontend</a></li></ul></div><div class='project-item'><p><strong>Sportswear Sales App</strong> <span class='project-time'>(11/2024 - 12/2024)</span></p><ul><li><strong>Số người tham gia:</strong> 4</li><li><strong>Phần đóng góp:</strong> Giỏ hàng, thanh toán, admin</li><li><strong>Mobile:</strong> React Native</li><li><strong>Admin App:</strong> Flutter</li><li><strong>Backend:</strong> Spring Boot</li><li><strong>Database:</strong> MySQL</li><li><strong>Link:</strong> <a href=\"https://github.com/dangthevu056/app-tiki-react-native\" target=\"_blank\">Frontend</a>, <a href=\"https://github.com/dangthevu056/api_web_ban_hang\" target=\"_blank\">Backend</a></li></ul></div>";
-            programmingSkillsTitle.textContent = "Programming Skills";
-            programmingSkillsContent.innerHTML = "<p><strong>Programming Languages:</strong> Java, C#, JavaScript, HTML, CSS</p><p><strong>Frontend:</strong> ReactJS, Bootstrap</p><p><strong>Backend:</strong> Spring Boot, ASP.NET Core, Entity Framework</p><p><strong>Mobile:</strong> React Native, Flutter</p><p><strong>Others:</strong> Git</p>";
-            softSkillsTitle.textContent = "Soft Skills";
-            softSkillsContent.innerHTML = "<p>Communication, Teamwork, Problem-solving</p>";
-            interestsTitle.textContent = "Interests";
-            interestsContent.innerHTML = "<p>Fullstack Development, Mobile Development, Computer Networks</p>";
-        });
+        // Tự động load lại ngôn ngữ trước đó (Nếu có) khi F5 tải trang
+        window.onload = () => {
+            const savedLang = localStorage.getItem('cv_lang') || 'vi';
+            setLang(savedLang);
+        };
     </script>
 </body>
-
 </html>
