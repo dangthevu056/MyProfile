@@ -1,23 +1,100 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CV - Đặng Thế Vũ | Java Developer</title>
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('cv_theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <style>
+        @property --gradient-start {
+            syntax: '<color>';
+            inherits: true;
+            initial-value: #ffffff;
+        }
+
+        @property --gradient-end {
+            syntax: '<color>';
+            inherits: true;
+            initial-value: #38bdf8;
+        }
+
         :root {
             --bg-color: #0f172a;
             --surface-color: rgba(30, 41, 59, 0.7);
             --surface-border: rgba(255, 255, 255, 0.1);
             --primary-color: #38bdf8;
             --primary-glow: rgba(56, 189, 248, 0.4);
+            --primary-hover-border: rgba(56, 189, 248, 0.4);
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --accent: #c084fc;
+            --bg-gradient: radial-gradient(circle at top right, rgba(56, 189, 248, 0.1), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(192, 132, 252, 0.1), transparent 40%);
+            --shadow-color: rgba(0, 0, 0, 0.5);
+            --timeline-bg: rgba(255, 255, 255, 0.02);
+            --timeline-hover-bg: rgba(56, 189, 248, 0.05);
+            --timeline-inset-glow: rgba(56, 189, 248, 0.05);
+            --tag-bg: rgba(56, 189, 248, 0.1);
+            --tag-border: rgba(56, 189, 248, 0.2);
+            --tag-hover-text: #0f172a;
+            --badge-bg: rgba(255, 255, 255, 0.1);
+            --btn-bg: rgba(255, 255, 255, 0.05);
+            --btn-hover-bg: rgba(255, 255, 255, 0.1);
+            --btn-active-text: #0f172a;
+            --gradient-start: #ffffff;
+            --gradient-end: #38bdf8;
+            --text-gradient: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f1f5f9;
+            --surface-color: rgba(255, 255, 255, 0.85);
+            --surface-border: rgba(15, 23, 42, 0.08);
+            --primary-color: #0284c7;
+            --primary-glow: rgba(2, 132, 199, 0.25);
+            --primary-hover-border: rgba(2, 132, 199, 0.4);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --accent: #7c3aed;
+            --bg-gradient: radial-gradient(circle at top right, rgba(2, 132, 199, 0.06), transparent 40%),
+                radial-gradient(circle at bottom left, rgba(124, 58, 237, 0.06), transparent 40%);
+            --shadow-color: rgba(15, 23, 42, 0.08);
+            --timeline-bg: rgba(15, 23, 42, 0.02);
+            --timeline-hover-bg: rgba(2, 132, 199, 0.03);
+            --timeline-inset-glow: rgba(2, 132, 199, 0.05);
+            --tag-bg: rgba(2, 132, 199, 0.08);
+            --tag-border: rgba(2, 132, 199, 0.15);
+            --tag-hover-text: #ffffff;
+            --badge-bg: rgba(15, 23, 42, 0.06);
+            --btn-bg: rgba(15, 23, 42, 0.05);
+            --btn-hover-bg: rgba(15, 23, 42, 0.08);
+            --btn-active-text: #ffffff;
+            --gradient-start: #0f172a;
+            --gradient-end: #0284c7;
+        }
+
+        /* Smooth theme transition */
+        .theme-transitioning,
+        .theme-transitioning * {
+            transition: background-color 1s cubic-bezier(0.4, 0, 0.2, 1),
+                color 1s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 1s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 1s cubic-bezier(0.4, 0, 0.2, 1),
+                background-image 1s cubic-bezier(0.4, 0, 0.2, 1),
+                --gradient-start 1s cubic-bezier(0.4, 0, 0.2, 1),
+                --gradient-end 1s cubic-bezier(0.4, 0, 0.2, 1) !important;
         }
 
         body {
@@ -27,8 +104,7 @@
             line-height: 1.6;
             margin: 0;
             padding: 0;
-            background-image: radial-gradient(circle at top right, rgba(56, 189, 248, 0.1), transparent 40%),
-                              radial-gradient(circle at bottom left, rgba(192, 132, 252, 0.1), transparent 40%);
+            background-image: var(--bg-gradient);
             background-attachment: fixed;
         }
 
@@ -40,7 +116,7 @@
 
         a:hover {
             color: var(--text-main);
-            text-shadow: 0 0 8px var(--primary-color);
+            text-shadow: 0 0 8px var(--primary-glow);
         }
 
         .container-cv {
@@ -51,22 +127,28 @@
             border: 1px solid var(--surface-border);
             border-radius: 20px;
             backdrop-filter: blur(10px);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 25px 50px -12px var(--shadow-color);
             position: relative;
         }
 
-        /* Language Switch */
-        .language-switch {
+        /* Controls Container (Theme Toggle & Language Switch) */
+        .cv-controls {
             position: absolute;
             top: 30px;
             right: 30px;
             display: flex;
-            gap: 10px;
+            align-items: center;
+            gap: 12px;
             z-index: 10;
         }
 
+        .language-switch {
+            display: flex;
+            gap: 8px;
+        }
+
         .lang-btn {
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--btn-bg);
             border: 1px solid var(--surface-border);
             color: var(--text-muted);
             padding: 5px 15px;
@@ -78,15 +160,37 @@
         }
 
         .lang-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--btn-hover-bg);
             color: var(--text-main);
         }
 
         .lang-btn.active {
             background: var(--primary-color);
-            color: #0f172a;
+            color: var(--btn-active-text);
             border-color: var(--primary-color);
             box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle-btn {
+            background: var(--btn-bg);
+            border: 1px solid var(--surface-border);
+            color: var(--text-muted);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .theme-toggle-btn:hover {
+            background: var(--btn-hover-bg);
+            color: var(--text-main);
+            transform: rotate(15deg);
         }
 
         /* Header */
@@ -129,7 +233,7 @@
             font-size: 2.8rem;
             font-weight: 700;
             margin: 0 0 5px 0;
-            background: linear-gradient(to right, #fff, var(--primary-color));
+            background: var(--text-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -149,18 +253,21 @@
             gap: 40px;
         }
 
-        @media (max-width: 768px) {
+        @media screen and (max-width: 768px) {
             .cv-grid {
                 grid-template-columns: 1fr;
             }
+
             .cv-header {
                 justify-content: center;
                 text-align: center;
             }
-            .language-switch {
-                top: 10px;
-                right: 10px;
+
+            .cv-controls {
+                top: 15px;
+                right: 15px;
             }
+
             .container-cv {
                 margin: 0;
                 border-radius: 0;
@@ -221,25 +328,25 @@
         }
 
         .tag {
-            background: rgba(56, 189, 248, 0.1);
+            background: var(--tag-bg);
             color: var(--primary-color);
             padding: 5px 12px;
             border-radius: 6px;
             font-size: 0.85rem;
             font-family: 'Fira Code', monospace;
-            border: 1px solid rgba(56, 189, 248, 0.2);
+            border: 1px solid var(--tag-border);
             transition: all 0.3s;
         }
 
         .tag:hover {
             background: var(--primary-color);
-            color: var(--bg-color);
+            color: var(--tag-hover-text);
             box-shadow: 0 0 10px var(--primary-glow);
         }
 
         /* Cards for Projects/Education */
         .timeline-item {
-            background: rgba(255, 255, 255, 0.02);
+            background: var(--timeline-bg);
             border: 1px solid var(--surface-border);
             padding: 20px;
             border-radius: 12px;
@@ -251,8 +358,8 @@
 
         .timeline-item:hover {
             transform: translateY(-3px);
-            border-color: rgba(56, 189, 248, 0.4);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), inset 0 0 20px rgba(56, 189, 248, 0.05);
+            border-color: var(--primary-hover-border);
+            box-shadow: 0 10px 20px var(--shadow-color), inset 0 0 20px var(--timeline-inset-glow);
         }
 
         .timeline-item::before {
@@ -324,35 +431,229 @@
             font-size: 0.75rem;
             padding: 3px 8px;
             border-radius: 4px;
-            background: rgba(255, 255, 255, 0.1);
+            background: var(--badge-bg);
             color: var(--text-main);
         }
 
+        @page {
+            size: A4;
+            margin: 8mm 12mm;
+        }
+
         @media print {
-            body { 
-                background: #fff; color: #000; 
-                background-image: none;
+            :root {
+                --bg-color: #ffffff !important;
+                --surface-color: #ffffff !important;
+                --surface-border: #cbd5e1 !important;
+                --primary-color: #0284c7 !important;
+                --primary-glow: transparent !important;
+                --primary-hover-border: #0284c7 !important;
+                --text-main: #0f172a !important;
+                --text-muted: #334155 !important;
+                --accent: #7c3aed !important;
+                --bg-gradient: none !important;
+                --shadow-color: transparent !important;
+                --timeline-bg: #f8fafc !important;
+                --timeline-hover-bg: #f8fafc !important;
+                --timeline-inset-glow: transparent !important;
+                --tag-bg: #f1f5f9 !important;
+                --tag-border: #cbd5e1 !important;
+                --tag-hover-text: #0f172a !important;
+                --badge-bg: #e2e8f0 !important;
+                --btn-bg: #f1f5f9 !important;
+                --btn-hover-bg: #e2e8f0 !important;
+                --gradient-start: #0f172a !important;
+                --gradient-end: #0284c7 !important;
             }
+
+            * {
+                transition: none !important;
+                animation: none !important;
+                box-shadow: none !important;
+            }
+
+            body {
+                background-color: #ffffff !important;
+                background-image: none !important;
+                color: var(--text-main) !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                font-size: 9pt !important;
+                line-height: 1.35 !important;
+            }
+
             .container-cv {
-                box-shadow: none; border: none; padding: 0; backdrop-filter: none; background: none; margin: 0; max-width: 100%;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                border: none !important;
+                background: none !important;
+                backdrop-filter: none !important;
             }
-            .language-switch { display: none; }
-            .cv-header { border-bottom: 2px solid #ccc; justify-content: flex-start;}
-            .header-info h1 { -webkit-text-fill-color: #000; background: none; color: #000; }
-            .header-info h2 { color: #555; }
-            .section-title { color: #333; }
-            .tag { border: 1px solid #ccc; background: none; color: #000; }
-            .timeline-item { border: 1px solid #ccc; break-inside: avoid;}
-            a { text-decoration: none; color: #0056b3; }
-            .avatar-container::before { display: none; }
+
+            .cv-controls {
+                display: none !important;
+            }
+
+            .cv-header {
+                border-bottom: 1.5px solid var(--surface-border) !important;
+                padding-bottom: 8px !important;
+                margin-bottom: 12px !important;
+                gap: 15px !important;
+                flex-wrap: nowrap !important;
+                align-items: center !important;
+            }
+
+            .avatar-container {
+                width: 80px !important;
+                height: 80px !important;
+                flex-shrink: 0 !important;
+            }
+
+            .avatar-container::before {
+                display: none !important;
+            }
+
+            .cv-header img {
+                border: 2px solid var(--surface-border) !important;
+            }
+
+            .header-info h1 {
+                font-size: 1.8rem !important;
+                margin-bottom: 2px !important;
+                background: none !important;
+                color: var(--text-main) !important;
+                -webkit-text-fill-color: var(--text-main) !important;
+            }
+
+            .header-info h2 {
+                font-size: 1.1rem !important;
+                color: var(--primary-color) !important;
+            }
+
+            .cv-grid {
+                display: grid !important;
+                grid-template-columns: 1fr 2fr !important;
+                gap: 20px !important;
+            }
+
+            .cv-section {
+                margin-bottom: 12px !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+
+            .section-title {
+                font-size: 1rem !important;
+                margin-bottom: 8px !important;
+                color: var(--primary-color) !important;
+                border-bottom: 1px solid var(--surface-border) !important;
+                padding-bottom: 3px !important;
+            }
+
+            .timeline-item {
+                padding: 8px 12px !important;
+                margin-bottom: 8px !important;
+                border: 1px solid var(--surface-border) !important;
+                border-radius: 6px !important;
+                background: var(--timeline-bg) !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+
+            .timeline-item::before {
+                display: none !important;
+            }
+
+            .timeline-header {
+                margin-bottom: 4px !important;
+            }
+
+            .timeline-title {
+                font-size: 0.95rem !important;
+            }
+
+            .timeline-date {
+                font-size: 0.8rem !important;
+            }
+
+            .timeline-content {
+                font-size: 8.5pt !important;
+            }
+
+            .timeline-content ul {
+                margin-top: 4px !important;
+                margin-bottom: 0 !important;
+                padding-left: 15px !important;
+            }
+
+            .timeline-content li {
+                margin-bottom: 2px !important;
+            }
+
+            .contact-item {
+                margin-bottom: 6px !important;
+                font-size: 8.5pt !important;
+            }
+
+            .skill-group {
+                margin-bottom: 8px !important;
+            }
+
+            .skill-group p {
+                margin-bottom: 2px !important;
+                font-size: 8.5pt !important;
+            }
+
+            .tag-list {
+                gap: 4px !important;
+            }
+
+            .tag {
+                padding: 2px 6px !important;
+                font-size: 7.5pt !important;
+                border: 1px solid var(--tag-border) !important;
+                background: var(--tag-bg) !important;
+                color: var(--primary-color) !important;
+            }
+
+            .tech-badges {
+                margin-top: 8px !important;
+                gap: 4px !important;
+            }
+
+            .tech-badge {
+                padding: 1px 5px !important;
+                font-size: 7pt !important;
+                background: var(--badge-bg) !important;
+                color: var(--text-main) !important;
+                border: 1px solid var(--surface-border) !important;
+            }
+
+            a {
+                color: var(--primary-color) !important;
+                text-decoration: underline !important;
+            }
         }
     </style>
 </head>
+
 <body>
     <div class="container-cv">
-        <div class="language-switch">
-            <button class="lang-btn active" onclick="setLang('vi')" id="viBtn">VI</button>
-            <button class="lang-btn" onclick="setLang('en')" id="enBtn">EN</button>
+        <div class="cv-controls">
+            <!-- Print Button -->
+            <button class="theme-toggle-btn" onclick="window.print()" id="printBtn" aria-label="Print CV" title="In hoặc lưu PDF (A4)">
+                <i class="bi bi-printer"></i>
+            </button>
+            <!-- Theme Toggle Button -->
+            <button class="theme-toggle-btn" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">
+                <i class="bi bi-sun" id="themeIcon"></i>
+            </button>
+            <!-- Language Switcher -->
+            <div class="language-switch">
+                <button class="lang-btn active" onclick="setLang('vi')" id="viBtn">VI</button>
+                <button class="lang-btn" onclick="setLang('en')" id="enBtn">EN</button>
+            </div>
         </div>
 
         <header class="cv-header">
@@ -370,7 +671,7 @@
             <div class="left-column">
                 <section class="cv-section">
                     <h3 class="section-title">
-                        <i class="bi bi-person-lines-fill"></i> 
+                        <i class="bi bi-person-lines-fill"></i>
                         <span data-i18n="contact.title">Liên Hệ</span>
                     </h3>
                     <div class="contact-item">
@@ -387,7 +688,8 @@
                     </div>
                     <div class="contact-item">
                         <i class="bi bi-github"></i>
-                        <a href="https://github.com/vu20130465" target="_blank">github.com/vu20130465 <span data-i18n="contact.edu">(edu)</span></a>
+                        <a href="https://github.com/vu20130465" target="_blank">github.com/vu20130465 <span
+                                data-i18n="contact.edu">(edu)</span></a>
                     </div>
                     <div class="contact-item">
                         <i class="bi bi-facebook"></i>
@@ -395,18 +697,18 @@
                     </div>
                     <div class="contact-item">
                         <i class="bi bi-geo-alt"></i>
-                        <a href="https://maps.app.goo.gl/KZZHR6CixDJpvQRi7" target="_blank">
-                            <span data-i18n="contact.location">Thủ Đức, TP Hồ Chí Minh</span>
+                        <a href="https://maps.app.goo.gl/3p3wvpbomtdtPS9A7" target="_blank">
+                            <span data-i18n="contact.location">Chánh Hưng, TP Hồ Chí Minh</span>
                         </a>
                     </div>
                 </section>
 
                 <section class="cv-section">
                     <h3 class="section-title">
-                        <i class="bi bi-code-slash"></i> 
+                        <i class="bi bi-code-slash"></i>
                         <span data-i18n="skills.title">Kỹ Năng</span>
                     </h3>
-                    
+
                     <div class="skill-group">
                         <p data-i18n="skills.lang">Ngôn ngữ</p>
                         <div class="tag-list">
@@ -416,7 +718,7 @@
                             <span class="tag">HTML/CSS</span>
                         </div>
                     </div>
-                    
+
                     <div class="skill-group">
                         <p>Backend</p>
                         <div class="tag-list">
@@ -448,7 +750,7 @@
 
                 <section class="cv-section">
                     <h3 class="section-title">
-                        <i class="bi bi-stars"></i> 
+                        <i class="bi bi-stars"></i>
                         <span data-i18n="soft.title">Kỹ Năng Mềm</span>
                     </h3>
                     <div class="tag-list">
@@ -457,10 +759,10 @@
                         <span class="tag" data-i18n="soft.prob">Giải quyết vấn đề</span>
                     </div>
                 </section>
-                
+
                 <section class="cv-section">
                     <h3 class="section-title">
-                        <i class="bi bi-lightbulb"></i> 
+                        <i class="bi bi-lightbulb"></i>
                         <span data-i18n="interests.title">Quan Tâm</span>
                     </h3>
                     <div class="tag-list">
@@ -475,35 +777,40 @@
             <div class="right-column">
                 <section class="cv-section">
                     <h3 class="section-title">
-                        <i class="bi bi-briefcase"></i> 
+                        <i class="bi bi-briefcase"></i>
                         <span data-i18n="obj.title">Mục Tiêu Nghề Nghiệp</span>
                     </h3>
                     <div class="timeline-item">
                         <p class="timeline-content" data-i18n="obj.content">
-                            Định hướng trở thành Fullstack Developer, mong muốn mở rộng kiến thức về frontend và backend, áp dụng kỹ năng lập trình vào các dự án thực tế và nâng cao khả năng xây dựng hệ thống web hiệu quả. Bên cạnh đó, cũng mong muốn tìm hiểu thêm về Quản trị mạng.
                         </p>
                     </div>
                 </section>
 
                 <section class="cv-section">
                     <h3 class="section-title">
-                        <i class="bi bi-mortarboard"></i> 
+                        <i class="bi bi-mortarboard"></i>
                         <span data-i18n="edu.title">Học Vấn</span>
                     </h3>
                     <div class="timeline-item">
                         <div class="timeline-header">
                             <h4 class="timeline-title" data-i18n="edu.school">Đại học Nông Lâm TP.HCM</h4>
-                            <span class="timeline-date">2020 - 2025</span>
+                            <span class="timeline-date">2020 - 2026</span>
                         </div>
                         <div class="timeline-content">
                             <strong data-i18n="edu.major">Ngành: Công nghệ Thông tin</strong>
+                            <div class="tech-badges">
+                                <span class="tech-badge">OOP</span>
+                                <span class="tech-badge">Cấu trúc dữ liệu & Giải thuật</span>
+                                <span class="tech-badge">Hệ quản trị CSDL</span>
+                                <span class="tech-badge">Mạng máy tính</span>
+                            </div>
                         </div>
                     </div>
                 </section>
 
                 <section class="cv-section">
                     <h3 class="section-title">
-                        <i class="bi bi-rocket-takeoff"></i> 
+                        <i class="bi bi-rocket-takeoff"></i>
                         <span data-i18n="proj.title">Dự Án Nổi Bật</span>
                     </h3>
 
@@ -517,13 +824,15 @@
                             <ul>
                                 <li><strong>Team size:</strong> 4</li>
                                 <li>
-                                    <strong data-i18n="proj.role">Đóng góp:</strong> 
+                                    <strong data-i18n="proj.role">Đóng góp:</strong>
                                     <span data-i18n="proj1.desc">Giỏ hàng, thanh toán, admin.</span>
                                 </li>
                                 <li>
-                                    <strong>Source:</strong> 
-                                    <a href="https://github.com/dangthevu056/app-tiki-react-native" target="_blank"><i class="bi bi-link-45deg"></i> Frontend</a> |
-                                    <a href="https://github.com/dangthevu056/api_web_ban_hang" target="_blank"><i class="bi bi-link-45deg"></i> Backend</a>
+                                    <strong>Source:</strong>
+                                    <a href="https://github.com/dangthevu056/app-tiki-react-native" target="_blank"><i
+                                            class="bi bi-link-45deg"></i> Frontend</a> |
+                                    <a href="https://github.com/dangthevu056/api_web_ban_hang" target="_blank"><i
+                                            class="bi bi-link-45deg"></i> Backend</a>
                                 </li>
                             </ul>
                         </div>
@@ -545,13 +854,15 @@
                             <ul>
                                 <li><strong>Team size:</strong> 4</li>
                                 <li>
-                                    <strong data-i18n="proj.role">Đóng góp:</strong> 
+                                    <strong data-i18n="proj.role">Đóng góp:</strong>
                                     <span data-i18n="proj2.desc">Giỏ hàng, thanh toán, phần lớn Backend.</span>
                                 </li>
                                 <li>
-                                    <strong>Source:</strong> 
-                                    <a href="https://github.com/HoangNhutDuy/CDWEB_FrontEnd" target="_blank"><i class="bi bi-link-45deg"></i> Frontend</a> |
-                                    <a href="https://github.com/vu20130465/special_subject_of_web_programming" target="_blank"><i class="bi bi-link-45deg"></i> Backend</a>
+                                    <strong>Source:</strong>
+                                    <a href="https://github.com/HoangNhutDuy/CDWEB_FrontEnd" target="_blank"><i
+                                            class="bi bi-link-45deg"></i> Frontend</a> |
+                                    <a href="https://github.com/vu20130465/special_subject_of_web_programming"
+                                        target="_blank"><i class="bi bi-link-45deg"></i> Backend</a>
                                 </li>
                             </ul>
                         </div>
@@ -573,12 +884,13 @@
                             <ul>
                                 <li><strong>Team size:</strong> 4</li>
                                 <li>
-                                    <strong data-i18n="proj.role">Đóng góp:</strong> 
+                                    <strong data-i18n="proj.role">Đóng góp:</strong>
                                     <span data-i18n="proj3.desc">Giỏ hàng, thanh toán.</span>
                                 </li>
                                 <li>
-                                    <strong>Source:</strong> 
-                                    <a href="https://github.com/TranMinhTuyen-20130459/Web_Hoa_Chat_Thi_Nghiem_DotNet" target="_blank"><i class="bi bi-link-45deg"></i> Github</a>
+                                    <strong>Source:</strong>
+                                    <a href="https://github.com/TranMinhTuyen-20130459/Web_Hoa_Chat_Thi_Nghiem_DotNet"
+                                        target="_blank"><i class="bi bi-link-45deg"></i> Github</a>
                                 </li>
                             </ul>
                         </div>
@@ -601,7 +913,7 @@
                 "name": "Đặng Thế Vũ",
                 "contact.title": "Liên Hệ",
                 "contact.edu": "(edu)",
-                "contact.location": "Thủ Đức, TP Hồ Chí Minh",
+                "contact.location": "Chánh Hưng, TP Hồ Chí Minh",
                 "skills.title": "Kỹ Năng",
                 "skills.lang": "Ngôn ngữ",
                 "skills.other": "Khác",
@@ -611,7 +923,7 @@
                 "soft.prob": "Giải quyết vấn đề",
                 "interests.title": "Quan Tâm",
                 "obj.title": "Mục Tiêu Nghề Nghiệp",
-                "obj.content": "Định hướng trở thành Fullstack Developer, mong muốn mở rộng kiến thức về frontend và backend, áp dụng kỹ năng lập trình vào các dự án thực tế và nâng cao khả năng xây dựng hệ thống web hiệu quả. Bên cạnh đó, cũng mong muốn tìm hiểu thêm về Quản trị mạng.",
+                "obj.content": "Sinh viên mới tốt nghiệp chuyên ngành Công nghệ Thông tin, đam mê phát triển Backend. Mong muốn ứng tuyển vị trí Java Backend Developer để áp dụng sâu kiến thức Spring Boot, xây dựng API Restful ổn định, scalable và tham gia phát triển các hệ thống web thực tế. Cam kết học hỏi nhanh, làm việc nhóm tốt và hướng tới trở thành Fullstack Developer trong tương lai.",
                 "edu.title": "Học Vấn",
                 "edu.school": "Đại học Nông Lâm TP.HCM",
                 "edu.major": "Ngành: Công nghệ Thông tin",
@@ -628,7 +940,7 @@
                 "name": "Dang The Vu",
                 "contact.title": "Contact",
                 "contact.edu": "(edu)",
-                "contact.location": "Thu Duc City, HCMC",
+                "contact.location": "Chanh Hung, Ho Chi Minh City",
                 "skills.title": "Tech Skills",
                 "skills.lang": "Languages",
                 "skills.other": "Others",
@@ -638,7 +950,7 @@
                 "soft.prob": "Problem-solving",
                 "interests.title": "Interests",
                 "obj.title": "Career Objective",
-                "obj.content": "Aiming to become a Fullstack Developer, eager to broaden knowledge of frontend and backend technologies, apply programming skills to real-world projects, and improve the ability to build efficient web systems. Additionally, interested in expanding knowledge in Network Administration.",
+                "obj.content": "A recent IT graduate passionate about Backend development. Seeking a Java Backend Developer position to apply strong Spring Boot knowledge, build stable, scalable RESTful APIs, and contribute to real-world web systems. Committed to fast learning, teamwork, and aspiring to become a Fullstack Developer in the future.",
                 "edu.title": "Education",
                 "edu.school": "Nong Lam University HCMC",
                 "edu.major": "Major: Information Technology",
@@ -656,15 +968,15 @@
         function setLang(lang) {
             // Cập nhật thư viện ngôn ngữ lên HTML document
             document.documentElement.lang = lang;
-            
+
             // Xử lý active các nút
             document.getElementById('viBtn').classList.toggle('active', lang === 'vi');
             document.getElementById('enBtn').classList.toggle('active', lang === 'en');
-            
+
             // Tìm tất cả các phần tử có thuộc tính data-i18n và render lại chữ
             document.querySelectorAll('[data-i18n]').forEach(element => {
                 const key = element.getAttribute('data-i18n');
-                if(translations[lang] && translations[lang][key]) {
+                if (translations[lang] && translations[lang][key]) {
                     element.innerHTML = translations[lang][key];
                 }
             });
@@ -673,11 +985,46 @@
             localStorage.setItem('cv_lang', lang);
         }
 
-        // Tự động load lại ngôn ngữ trước đó (Nếu có) khi F5 tải trang
+        function toggleTheme() {
+            // Thêm class chuyển đổi để chạy hiệu ứng transition
+            document.documentElement.classList.add('theme-transitioning');
+
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            let newTheme = 'dark';
+            if (currentTheme !== 'light') {
+                newTheme = 'light';
+            }
+
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('cv_theme', newTheme);
+
+            updateThemeIcon(newTheme);
+
+            // Xóa class chuyển đổi sau khi hoàn tất transition (1s)
+            setTimeout(() => {
+                document.documentElement.classList.remove('theme-transitioning');
+            }, 1000);
+        }
+
+        function updateThemeIcon(theme) {
+            const themeIcon = document.getElementById('themeIcon');
+            if (theme === 'light') {
+                themeIcon.className = 'bi bi-moon-stars';
+            } else {
+                themeIcon.className = 'bi bi-sun';
+            }
+        }
+
+        // Tự động load lại ngôn ngữ và theme trước đó khi F5 tải trang
         window.onload = () => {
             const savedLang = localStorage.getItem('cv_lang') || 'vi';
             setLang(savedLang);
+
+            const savedTheme = localStorage.getItem('cv_theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
         };
     </script>
 </body>
+
 </html>
